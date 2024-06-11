@@ -5,10 +5,17 @@ import 'package:helloword/enums/onboarding_page_position.dart';
 // Đây là một StatelessWidget dùng để hiển thị giao diện onboarding
 class OnboardingChildPage extends StatelessWidget {
   final OnboardingPagePosition onboardingPagePosition;
+  // Định nghĩa 1 function
+  final VoidCallback nextOnPressed;
+  final VoidCallback backOnPressed;
+  final VoidCallback skipOnPessed;
 
   const OnboardingChildPage({
     super.key,
-    required this.onboardingPagePosition
+    required this.onboardingPagePosition,
+    required this.nextOnPressed,
+    required this.backOnPressed,
+    required this.skipOnPessed
   });
 
   @override
@@ -47,7 +54,9 @@ class OnboardingChildPage extends StatelessWidget {
       // Thiết lập khoảng cách phía trên
       margin: EdgeInsets.only(top: topMargin),
       child: TextButton(
-        onPressed: () {}, // Hành động khi bấm nút (hiện tại để trống)
+        onPressed: () {
+          skipOnPessed.call(); // Gọi hàm skip từ contructor truyền vào
+        }, // Hành động khi bấm nút (hiện tại để trống)
         child: Text(
           "Skip",
           style: TextStyle(
@@ -77,15 +86,14 @@ class OnboardingChildPage extends StatelessWidget {
   Widget _buildOnboardingPageControl(BuildContext context) {
     // Tạo danh sách các chấm tròn
     final List<Widget> indicators = List.generate(
-      3, // Số lượng chấm tròn
+      3,
       (index) => Container(
         margin: EdgeInsets.symmetric(horizontal: 8.0),
         // Khoảng cách ngang giữa các chấm tròn
         height: 4,
         width: 32,
         decoration: BoxDecoration(
-          color:
-              Colors.white.withOpacity(0.7), // Màu sắc của chấm tròn với độ mờ
+           color: "page${index+1}" == onboardingPagePosition.name ? Colors.white.withOpacity(1) : Colors.white.withOpacity(0.7) , // Màu sắc của chấm tròn với độ mờ
         ),
       ),
     );
@@ -95,9 +103,13 @@ class OnboardingChildPage extends StatelessWidget {
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: verticalMargin),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center, // Căn giữa các chấm tròn
-        children: indicators,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center, // Căn giữa các chấm tròn
+            children: indicators,
+          ),
+        ],
       ),
     );
   }
@@ -153,7 +165,9 @@ class OnboardingChildPage extends StatelessWidget {
       child: Row(
         children: [
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                backOnPressed();
+              },
               // Hành động khi bấm nút Back (hiện tại để trống)
               child: Text(
                 "Back",
@@ -163,18 +177,22 @@ class OnboardingChildPage extends StatelessWidget {
               )),
           const Spacer(), // Tạo khoảng trống giữa nút Back và nút Next
           ElevatedButton(
+              onPressed: () {
+                // nextOnPressed.call()  cách 1
+                nextOnPressed(); // Cách 2
+              },
               style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF8875FF), // Màu nền của nút
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4) // Bo góc nút
                       )),
-              onPressed: () {},
+
               // Hành động khi bấm nút Next (hiện tại để trống)
               child: Text(
-                "Next",
+                 onboardingPagePosition.name == "page3" ? "Get started" : "Next",
                 style: TextStyle(
                     fontSize: 16,
-                    color: Colors.white.withOpacity(0.44)), // Màu chữ với độ mờ
+                    color: Colors.white.withOpacity(0.87)), // Màu chữ với độ mờ
               ))
         ],
       ),
