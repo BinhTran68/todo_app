@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:helloword/enums/onboarding_page_position.dart';
+import 'package:helloword/ui/wellcome/welcome_page.dart';
 
 import 'onboarding_child_page.dart';
 // stful tạo ra 1 Sateful Widget
@@ -14,7 +15,8 @@ class OnboardingPageView extends StatefulWidget {
 }
 
 class _OnboardingPageViewState extends State<OnboardingPageView> {
-  final _pageController = PageController(); // Cung cấp các quyền điều kiển page view
+  final _pageController =
+      PageController(); // Cung cấp các quyền điều kiển page view
 
   // Page controller quản lý việc chuyển đổi giữa các trang trong 1 PageView
   //  animateToPage(), jumpToPage() Chuyển đến 1 trang cụ  thể
@@ -24,53 +26,63 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( // Là màn hình nằm trong Phần màn hình hiển thị k liên quan đến hệ thống
-      body: PageView( // Cho phép chuyển màn hình qua lại
+    return Scaffold(
+      // Là màn hình nằm trong Phần màn hình hiển thị k liên quan đến hệ thống
+      body: PageView(
+        // Cho phép chuyển màn hình qua lại
         controller: _pageController,
         // PageView sẽ hiển thị danh sách các trang cho phép tạo ra 1 danh sách trang mà nguươời dùng có thể vuoost qua
         children: [
           // Truyền vào các widget con mà muốn papge view hển thị
-          OnboardingChildPage( // Gọi class OnboardingChildPage truyền vào những thành phần.
+          OnboardingChildPage(
+            // Gọi class OnboardingChildPage truyền vào những thành phần.
             onboardingPagePosition: OnboardingPagePosition.page1,
             nextOnPressed: () {
               _pageController.animateToPage(1,
-                  duration: const Duration(milliseconds: 1000),
+                  duration: const Duration(milliseconds: 500),
                   curve: Curves.ease);
             },
             backOnPressed: () {},
             skipOnPessed: () {
-              print('Đi đến màn hình wel come 11');
+              _gotoWelcomePage();
             },
           ),
           OnboardingChildPage(
             onboardingPagePosition: OnboardingPagePosition.page2,
             nextOnPressed: () {
               _pageController.animateToPage(2,
-                  duration: Duration(milliseconds: 1000), curve: Curves.ease);
+                  duration: Duration(milliseconds: 500), curve: Curves.ease);
             },
             backOnPressed: () {
               _pageController.animateToPage(0,
-                  duration: Duration(milliseconds: 1000), curve: Curves.ease); // Chuyển với  trang animate
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.ease); // Chuyển với  trang animate
             },
             skipOnPessed: () {
-              print('Đi đến màn hình wel come');
+              _gotoWelcomePage();
             }, // Truyền vào với tham số là enum page name
           ),
           OnboardingChildPage(
             onboardingPagePosition: OnboardingPagePosition.page3,
             nextOnPressed: () {
-              print('Đi đến màn hình wel come');
+              _gotoWelcomePage();
             },
             backOnPressed: () {
               _pageController.animateToPage(1,
-                  duration: Duration(milliseconds: 1000), curve: Curves.ease);
+                  duration: const Duration(milliseconds: 500), curve: Curves.ease);
             },
             skipOnPessed: () {
-              print('Đi đến màn hình wel come');
+              _gotoWelcomePage();
             },
           ),
         ],
       ),
     );
+  }
+
+  void _gotoWelcomePage() {
+    // Mặc định khi sử dụng  StatefulWidget thì mặc định đã có context
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const WelcomePage()));
   }
 }

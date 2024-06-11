@@ -14,7 +14,9 @@ class WelcomePage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: const Icon(
               Icons.arrow_back_ios_new_outlined,
               size: 24,
@@ -74,7 +76,7 @@ class WelcomePage extends StatelessWidget {
 
   Widget _buildGroupButtonBottom() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 54),
+      margin: const EdgeInsets.symmetric(vertical: 54),
       child: Column(
         children: [
           _buildBtnLogin(),
@@ -86,7 +88,7 @@ class WelcomePage extends StatelessWidget {
 
   Widget _buildBtnLogin() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: SizedBox(
         width: double.infinity,
         child: CustomButton(
