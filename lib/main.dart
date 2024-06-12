@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:helloword/constants/app_colors.dart';
+import 'package:helloword/ui/login/login.dart';
 import 'package:helloword/ui/onboarding/onboarding_page_view.dart';
 import 'package:helloword/ui/splash/splash.dart';
 import 'package:helloword/ui/wellcome/welcome_page.dart';
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3:  true,
         fontFamily: GoogleFonts.lato().fontFamily
       ),
-      home: const OnboardingPageView()
+      home: Login()
     );
   }
 }

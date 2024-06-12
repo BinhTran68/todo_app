@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:helloword/components/CustomButton.dart';
+import 'package:helloword/components/custom_button.dart';
 import 'package:helloword/constants/app_colors.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -33,10 +32,6 @@ class WelcomePage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _buildEscButton() {
-    return AppBar();
   }
 
   Widget _buildTitleWelcomePage() {
