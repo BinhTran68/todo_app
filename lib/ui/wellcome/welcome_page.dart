@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:helloword/components/custom_button.dart';
 import 'package:helloword/constants/app_colors.dart';
+import 'package:helloword/ui/login/login.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +29,13 @@ class WelcomePage extends StatelessWidget {
           children: [
             _buildTitleWelcomePage(),
             const Spacer(),
-            _buildGroupButtonBottom(),
+            _buildGroupButtonBottom(context),
           ],
         ),
       ),
     );
+
+
   }
 
   Widget _buildTitleWelcomePage() {
@@ -69,19 +73,19 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildGroupButtonBottom() {
+  Widget _buildGroupButtonBottom(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 54),
       child: Column(
         children: [
-          _buildBtnLogin(),
+          _buildBtnLogin(context),
           _buildBtnRegister(),
         ],
       ),
     );
   }
 
-  Widget _buildBtnLogin() {
+  Widget _buildBtnLogin(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: SizedBox(
@@ -92,6 +96,8 @@ class WelcomePage extends StatelessWidget {
           text: "Login",
           textColor: Colors.white.withOpacity(0.87),
           onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => const Login()));
           },
         ),
       ),
